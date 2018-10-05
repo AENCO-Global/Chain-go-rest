@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 
-# Set the GoPath if not already, prevent unlimited growth
+# Set the GoPath must be set (assume the deployed folder is the path)
+export GOPATH=~/go
+export GOBIN=$GOPATH/pkg
+export GOEXE=$GOPATH/bin
 if [[ $PATH != *"go"* ]]; then
-    export GOPATH=~/go
     export PATH=$PATH:$GOPATH/bin
 fi
 
-# Install the Loibraries for Go to build
+# Install the Libraries for Go to build
 go get -v -u github.com/gorilla/mux
 go get -v -u github.com/AENCO-Global/Chain-go-sdk
+go get -v -u github.com/AENCO-Global/Chain-go-rest
