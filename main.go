@@ -1,12 +1,17 @@
 package main
 // API Details to Match https://www.notion.so/aencoins/API-Interface-1af6611260b04c899f9912e0b12d9344
 import (
+    "encoding/json"
+    "fmt"
     "github.com/gorilla/mux"
     "net/http"
-    "fmt"
-    "encoding/json"
 )
-type JsonResponse map[string]interface{}
+
+
+const (
+    private = "6C07F78D8C932626F6550FB114C26EFAFE2EC40220E44E1EF0180D9FB89A0AF0"
+    public  = "8C2C06CCCDDFBC964345C051B3A94906813DCB198BA8A56378DA6ED1D2E99B58"
+)
 
 func main() {
     route := mux.NewRouter()
@@ -46,28 +51,8 @@ func main() {
     route.HandleFunc("/node/info" , nodeInfoGet ).Methods("GET")
     route.HandleFunc("/node/time" , nodeTimeGet ).Methods("GET")
 
-
     route.NotFoundHandler = http.HandlerFunc(NotFound)     // If the routing is not found, use this as a default.
     http.ListenAndServe(":3001", route)             // Set up the listerner for the incoming requests
-}
-
-func NotFound(w http.ResponseWriter, r *http.Request)  {
-    var responceText = "Not Found - Invalid Parameters"
-    responceText += "The format is dns/{function}/{p1}/{p2}/{etc}</b>"
-    responceText += "example:</b> api-1.aencoin..io:3001/version"
-    responceText += "will return:</b> <br /> ver:1.(002) "
-
-    fmt.Fprint(w, JsonResponse{"resp": 400, "status": "unknow_parameters","message":responceText } )
-}
-
-func (jr JsonResponse) String() (str string) { // method to print out String
-    byte, err := json.Marshal(jr)
-    if err != nil {
-        str = ""                              // return empty
-        return
-    }
-    str = string(byte)                        //ok,return cast byte to string
-    return
 }
 
 func validateJsonBody(body []byte) string {   // function for validating the Json body
@@ -339,13 +324,13 @@ func networkGet(w http.ResponseWriter, r *http.Request) {
 }
 
 func nodeInfoGet(w http.ResponseWriter, r *http.Request) {
-    params := mux.Vars(r)
+//    params := mux.Vars(r)
     w.WriteHeader(http.StatusOK)
     fmt.Fprintf(w, "Node Info", `{"publicKey": "EB6839C7E6BD0031FDD5F8CB5137E9BC950D7EE7756C46B767E68F3F58C24390", "port": 7900, "networkIdentifier": 144,"version": 0,"roles": 2,"host": "api-node-0","friendlyName": "api-node-0"}`)
 }
 
 func nodeTimeGet(w http.ResponseWriter, r *http.Request) {
-    params := mux.Vars(r)
+//    params := mux.Vars(r)
     w.WriteHeader(http.StatusOK)
     fmt.Fprintf(w, "Node Info", `{ "communicationTimestamps": { "sendTimestamp": [], "receiveTimestamp": [] }}`)
 }
