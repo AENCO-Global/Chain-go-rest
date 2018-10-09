@@ -10,5 +10,9 @@ fi
 
 # Install the Libraries for Go to build
 go get -v -u github.com/gorilla/mux
+go get -u golang.org/x/crypto
+go get github.com/pkg/errors
+go get github.com/google/flatbuffers/go
+
 go get -v -u github.com/AENCO-Global/Chain-go-sdk
 go get -v -u github.com/AENCO-Global/Chain-go-rest

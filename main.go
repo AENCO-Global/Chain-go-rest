@@ -17,6 +17,8 @@ func main() {
     route := mux.NewRouter()
 
     route.HandleFunc("/version" , version ).Methods("GET")
+    route.HandleFunc("/crypto" , accountGenerate ).Methods("GET")
+    route.HandleFunc("/crypto/{privateKey}" , accountGenerate ).Methods("GET")
     route.HandleFunc("/account/{accountId}" , accountGet ).Methods("GET")
     route.HandleFunc("/account/{accountId}" , accountPost ).Methods("POST")
     route.HandleFunc("/account/{publicKey}/transactions" , accountTransactionsGet ).Methods("GET")
