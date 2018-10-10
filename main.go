@@ -1,16 +1,9 @@
 package main
 // API Details to Match https://www.notion.so/aencoins/API-Interface-1af6611260b04c899f9912e0b12d9344
 import (
-    "encoding/json"
     "fmt"
     "github.com/gorilla/mux"
     "net/http"
-)
-
-
-const (
-    private = "6C07F78D8C932626F6550FB114C26EFAFE2EC40220E44E1EF0180D9FB89A0AF0"
-    public  = "8C2C06CCCDDFBC964345C051B3A94906813DCB198BA8A56378DA6ED1D2E99B58"
 )
 
 func main() {
@@ -56,37 +49,6 @@ func main() {
     route.NotFoundHandler = http.HandlerFunc(NotFound)     // If the routing is not found, use this as a default.
     http.ListenAndServe(":3001", route)             // Set up the listerner for the incoming requests
 }
-
-func validateJsonBody(body []byte) string {   // function for validating the Json body
-    // validate the key-value of post body json format
-    c := make(map[string]interface{})
-    json.Unmarshal(body, &c)
-    k := make([]string, len(c))
-
-    // copy c's keys into k
-    j := 0
-    for s, _ := range c {
-        k[j] = s
-        j++
-    }
-    var valid_flag int
-    var reqst = []string{"version"}
-
-    for _, reqst_val := range reqst {
-        for _, k_val := range k {
-            if reqst_val == k_val {
-                valid_flag++
-                break
-            }
-        }
-    }
-    if valid_flag == 1 {
-        return "ok"
-    } else {
-        return "not_ok"
-    }
-}
-
 
 func version(w http.ResponseWriter, r *http.Request) {
     var responceText = "Currently we have only 1 version"
@@ -317,12 +279,6 @@ func transactionStatusesPost(w http.ResponseWriter, r *http.Request) {
     //}
     w.WriteHeader(http.StatusOK)
     fmt.Fprintf(w, "Transaction Post")
-}
-
-func networkGet(w http.ResponseWriter, r *http.Request) {
-    params := mux.Vars(r)
-    w.WriteHeader(http.StatusOK)
-    fmt.Fprintf(w, "Transaction Hash Status: %v\n", params["hash"])
 }
 
 func nodeInfoGet(w http.ResponseWriter, r *http.Request) {
