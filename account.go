@@ -37,3 +37,50 @@ func accountGenerate(w http.ResponseWriter, r *http.Request)  {
 
     w.Header().Set("Content-Type","application/json")
 }
+
+func accountTransactionsGet(w http.ResponseWriter, r *http.Request) {
+    type accountDetail struct {
+        Meta string `json:"meta"`
+        Account []string `json:"account"`
+    }
+
+    params := mux.Vars(r)
+    w.WriteHeader(http.StatusOK)
+    fmt.Fprintf(w, "Public Key: %v\n", params["publicKey"])
+}
+
+func accountTransactionsIncomingGet(w http.ResponseWriter, r *http.Request) {
+    params := mux.Vars(r)
+    w.WriteHeader(http.StatusOK)
+    fmt.Fprintf(w, "Public Key: %v\n", params["publicKey"])
+}
+
+func accountTransactionsOutgoingGet(w http.ResponseWriter, r *http.Request) {
+    params := mux.Vars(r)
+    w.WriteHeader(http.StatusOK)
+    fmt.Fprintf(w, "Public Key: %v\n", params["publicKey"])
+}
+
+func accountTransactionsUnconfirmedGet(w http.ResponseWriter, r *http.Request) {
+    params := mux.Vars(r)
+    w.WriteHeader(http.StatusOK)
+    fmt.Fprintf(w, "Public Key: %v\n", params["publicKey"])
+}
+
+func accountTransactionsPartialGet(w http.ResponseWriter, r *http.Request) {
+    params := mux.Vars(r)
+    w.WriteHeader(http.StatusOK)
+    fmt.Fprintf(w, "Public Key: %v\n", params["publicKey"])
+}
+
+func accountMultisigGet(w http.ResponseWriter, r *http.Request) {
+    params := mux.Vars(r)
+    w.WriteHeader(http.StatusOK)
+    fmt.Fprintf(w, "Account ID: %v\n", params["accountId"])
+}
+
+func accountMultisigGraphGet(w http.ResponseWriter, r *http.Request) {
+    params := mux.Vars(r)
+    w.WriteHeader(http.StatusOK)
+    fmt.Fprintf(w, "Account ID: %v\n", params["accountId"])
+}
