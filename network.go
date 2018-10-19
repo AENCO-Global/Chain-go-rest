@@ -7,9 +7,8 @@ import (
     "net/http"
 )
 
-
 func networkGet(w http.ResponseWriter, r *http.Request) {
-    Server := "localhost:3000"
+    Server := conf.Server  // "api-1.aencoin.io:3000"
 
     client := infrastructure.NewAPIClient()
     client.ChangeServer(Server)

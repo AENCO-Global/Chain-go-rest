@@ -6,6 +6,8 @@ import (
     "net/http"
 )
 
+var conf = getGlobals()
+
 func main() {
     route := mux.NewRouter()
 
